@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="en"> 
 <head>
-    <title>Bootstrap 4 Blog Template For Developers</title>
+    <title>UI Elements Guide</title>
     
     <!-- Meta -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Blog Template">
-    <meta name="author" content="Xiaoying Riley at 3rd Wave Media">    
+    <meta name="description" content="A simple guide to various aspects on UI Elements">
+    <meta name="author" content="Andrew Burke">    
     <link rel="shortcut icon" href="favicon.ico"> 
     
     <!-- FontAwesome JS-->
@@ -19,6 +19,7 @@
 	<link href="https://cdn.jsdelivr.net/npm/prismjs@1.22.0/themes/prism-okaidia.css" rel="stylesheet" />
 	<link rel="stylesheet" href="assets/styles.css">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.22.0/plugins/line-numbers/prism-line-numbers.min.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.22.0/plugins/unescaped-markup/prism-unescaped-markup.min.css">
 </head> 
 
 <body class="line-numbers">
@@ -43,47 +44,113 @@
 				</div><!--//profile-section-->
 			</div>
 		</nav>
-    </header>
+	</header>
     
-    <div class="main-wrapper">
-	    <section class="cta-section theme-bg-light py-5">
-		    <div class="container text-center">
-			    <h2 class="heading">Let's talk about UI Elements</h2>
-			    <div class="intro">If you want some tips for them, you've come to the right place.</div>
-		    </div><!--//container-->
-		</section>
+<article class="blog-post px-3 py-5 p-md-5">
+	<div class="main-wrapper">
+		<div class="container">
+			<header class="blog-post-header">
+				<h2 class="title mb-2">Getting Started with UI Elements</h2>
+			</header>
+
+			<div class="blog-post-body">
+				<p>First off, let's learn some basic <code>UXML</code> and <code>C#</code> linking.</p>
+				<p>This is a simple <code>UXML</code> snippet that will create a simple <code>Label</code> element.</p>
+
+				<section>
+					<script type="text/plain" class="language-markup"><ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+	<ui:Label text="Label" name="my-label" />
+</ui:UXML></script>
+				</section>
+
+				<p>Now, let's hook this up to our <code>C#</code> code, shall we?</p>
+
+				<br>
+
+				<h5>Linking to C#</h5>
+				<p>Say we have a system that needs to set this label's text to a given value each time an enemy is hit.</p>
+				<p>How would we do it? Well, it's quite simple!</p>
+
+				<p>First, you will need a reference to the <code>UXML</code> file from a script; this comes in the form of a <code>VisualTreeAsset</code>. Any <code>UXML</code> file in your project will be of this type.</p>
+				<p>Now, let's make a reference to the <code>UXML</code> file from earlier. This will get assigned through the inspector for now.</p>
+
+				<section>
+					<script type="text/plain" class="language-csharp">[SerializeField] private VisualTreeAsset _myUxml;</script>
+				</section>
+
+				<p>Now we have the <code>UXML</code> contents in our <code>C#</code> script as a simple variable.</p>
+
+				<br>
+
+				<h5>Getting Elements</h5>
+
+				<p>Ok, we have the file, now what? Well, now we can do some queries against the <code>UXML</code> contents!</p>
+				<p>To start off, let's get the <code>Label</code> from the earlier example.</p>
+
+				<section>
+					<script type="text/plain" class="language-csharp">VisualElement root = _myUxml.rootVisualElement; 
+Label myLabel = root.Q<Label>("my-label");</script>
+				</section>
+
+				<p><code>Q&lt;T&gt;(name)</code> is a quite nifty fellow. It allows you to search through a given <code>VisualElement</code> for the first element with a given name. In this case, we searched for <code>"my-label"</code>.</p>
+
+				<p>Now, say we want to get the element by a class instead? Let's add <code>my-label-class</code> to our earlier <code>Label</code> element.</p>
+
+				<script type="text/plain" class="language-markup"><ui:Label text="Label" name="my-label" class="my-label-class" /></script>
+
+				<p>Once we have this, now we can do a simple search for the class.</p>
+
+				<script type="text/plain" class="language-csharp">Label myLabel = root.Q<Label>(className: "my-label-class");</script>
+
+				<p>The <code>(className: string)</code> overload for <code>Q&lt;T&gt;</code> is simply a quick way to find a given class on a given element.</p>
+
+				<p>Here are all of the <code>Q&lt;T&gt;</code> overloads:</p>
+
+				<script type="text/plain" class="language-csharp">// The <T> applier is not required
+T a = Q<T>(string name = null, params string[] classes);
+T b = Q<T>(string name = null, className = null);</script>
+
+<!-- <pre class="language-charp">
+<code class="language-charp">
+/// <summary>
+///	Yes
+/// </summary>
+</code>
+</pre> -->
+<!-- <pre class="language-csharp">
+<code class="language-csharp">
+using Libraries.Ecs;
+using Libraries.Ecs.Components;
+using UnityEngine;
+
+namespace Libraries.Tests {
+	public class Test2D: MonoBehaviour {
+		private void Awake() {
+			GameObject obj = GameObject.CreatePrimitive(PrimitiveType.Cube);
+
+			var template = Template
+				.Create()
+				.WithDefault<Position>()
+				.WithDefault<Rotation>()
+				.WithDefault<Scale>()
+				.WithDefault<Velocity>()
+				.With(new SceneObject {
+					transform = obj.transform
+				})
+				.WithDefault<InputEvent>();
+			
+			World.Create(template);
+		}
+	}
+}
+</code>
+</pre> -->
+			</div>
+		</div>
+</article>
 		
 		<!-- Start information -->
-		<div class="code-view">
-			<pre class="language-csharp">
-				<code class="language-csharp">
-					using Libraries.Ecs;
-					using Libraries.Ecs.Components;
-					using UnityEngine;
-					
-					namespace Libraries.Tests {
-						public class Test2D: MonoBehaviour {
-							private void Awake() {
-								GameObject obj = GameObject.CreatePrimitive(PrimitiveType.Cube);
-					
-								var template = Template
-									.Create()
-									.WithDefault<Position>()
-									.WithDefault<Rotation>()
-									.WithDefault<Scale>()
-									.WithDefault<Velocity>()
-									.With(new SceneObject {
-										transform = obj.transform
-									})
-									.WithDefault<InputEvent>();
-								
-								World.Create(template);
-							}
-						}
-					}
-				</code>
-			</pre>
-		</div>
+	
 		<!-- End information -->
 	    
 	    <footer class="footer text-center py-2 theme-bg-dark">
@@ -100,6 +167,7 @@
 	<script src="https://cdn.jsdelivr.net/npm/prismjs@1.22.0/prism.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/prismjs@1.22.0/plugins/autoloader/prism-autoloader.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/prismjs@1.22.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/prismjs@1.22.0/plugins/unescaped-markup/prism-unescaped-markup.min.js"></script>
 </body>
 </html> 
 
