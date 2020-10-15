@@ -15,12 +15,13 @@
 	<script defer src="assets/fontawesome/js/all.min.js"></script>
     
     <!-- Theme CSS -->  
-    <link id="theme-style" rel="stylesheet" href="assets/theme.css">
-
+	<link id="theme-style" rel="stylesheet" href="assets/theme.css">
+	<link href="https://cdn.jsdelivr.net/npm/prismjs@1.22.0/themes/prism-okaidia.css" rel="stylesheet" />
+	<link rel="stylesheet" href="assets/styles.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.22.0/plugins/line-numbers/prism-line-numbers.min.css">
 </head> 
 
-<body>
-    
+<body class="line-numbers">
     <header class="header text-center">	    
 	    <h1 class="blog-name pt-lg-4 mb-0"><a href="index.html">UI Elements</a></h1>
         
@@ -53,9 +54,36 @@
 		</section>
 		
 		<!-- Start information -->
-		
-
-
+		<div class="code-view">
+			<pre class="language-csharp">
+				<code class="language-csharp">
+					using Libraries.Ecs;
+					using Libraries.Ecs.Components;
+					using UnityEngine;
+					
+					namespace Libraries.Tests {
+						public class Test2D: MonoBehaviour {
+							private void Awake() {
+								GameObject obj = GameObject.CreatePrimitive(PrimitiveType.Cube);
+					
+								var template = Template
+									.Create()
+									.WithDefault<Position>()
+									.WithDefault<Rotation>()
+									.WithDefault<Scale>()
+									.WithDefault<Velocity>()
+									.With(new SceneObject {
+										transform = obj.transform
+									})
+									.WithDefault<InputEvent>();
+								
+								World.Create(template);
+							}
+						}
+					}
+				</code>
+			</pre>
+		</div>
 		<!-- End information -->
 	    
 	    <footer class="footer text-center py-2 theme-bg-dark">
@@ -68,12 +96,10 @@
     <!-- Javascript -->          
     <script src="assets/plugins/jquery-3.4.1.min.js"></script>
     <script src="assets/plugins/popper.min.js"></script> 
-    <script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script> 
-
-    <!-- Style Switcher (REMOVE ON YOUR PRODUCTION SITE) -->
-    <script src="assets/js/demo/style-switcher.js"></script>     
-    
-
+	<script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script> 
+	<script src="https://cdn.jsdelivr.net/npm/prismjs@1.22.0/prism.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/prismjs@1.22.0/plugins/autoloader/prism-autoloader.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/prismjs@1.22.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
 </body>
 </html> 
 
