@@ -66,6 +66,7 @@
 				<p>Now, let's hook this up to our <code>C#</code> code, shall we?</p>
 
 				<br>
+				<br>
 
 				<h5>Linking to C#</h5>
 				<p>Say we have a system that needs to set this label's text to a given value each time an enemy is hit.</p>
@@ -80,6 +81,7 @@
 
 				<p>Now we have the <code>UXML</code> contents in our <code>C#</code> script as a simple variable.</p>
 
+				<br>
 				<br>
 
 				<h5>Getting Elements</h5>
@@ -110,41 +112,43 @@ Label myLabel = root.Q<Label>("my-label");</script>
 T a = Q<T>(string name = null, params string[] classes);
 T b = Q<T>(string name = null, className = null);</script>
 
-<!-- <pre class="language-charp">
-<code class="language-charp">
-/// <summary>
-///	Yes
-/// </summary>
-</code>
-</pre> -->
-<!-- <pre class="language-csharp">
-<code class="language-csharp">
-using Libraries.Ecs;
-using Libraries.Ecs.Components;
-using UnityEngine;
+				<br>
+				<br>
 
-namespace Libraries.Tests {
-	public class Test2D: MonoBehaviour {
-		private void Awake() {
-			GameObject obj = GameObject.CreatePrimitive(PrimitiveType.Cube);
+				<h5>Stylesheets</h5>
 
-			var template = Template
-				.Create()
-				.WithDefault<Position>()
-				.WithDefault<Rotation>()
-				.WithDefault<Scale>()
-				.WithDefault<Velocity>()
-				.With(new SceneObject {
-					transform = obj.transform
-				})
-				.WithDefault<InputEvent>();
-			
-			World.Create(template);
-		}
-	}
-}
-</code>
-</pre> -->
+				<p>Now that we can find elements through their name or class, let's add some <em>style</em> to them.</p>
+				<p>Firstly, you will need to define a stylesheet. These are <code>.uss</code> files similar to <code>.css</code> files. Here is a simple one for our label from earlier.</p>
+
+				<section>
+					<script type="text/plain" class="language-css">.my-label-class {
+	color: red;
+}</script>
+				</section>
+
+				<p>This simple style will give any <code>Label</code> with the <code>my-label-class</code> class some red text. Now how do we actually bring this into the land of <code>C#</code>?</p>
+				<p>It is quite simple, actually.</p>
+				<p>First you need to define your field that will determine your stylesheet.</p>
+
+				<section>
+					<script type="text/plain" class="language-csharp">[SerializeField] private StyleSheet _myStyleSheet;</script>
+				</section>
+
+				<p>Then you can apply it to your <code>VisualElement</code>; we are using the root in this case from earlier.</p>
+				
+				<section>
+					<script type="text/plain" class="language-csharp">root.styleSheets.Add(_myStyleSheet);</script>
+				</section>
+
+				<p>Now, your label will be red and boring. At least it works though!</p>
+
+				<div style="margin-top: 100px;">
+					<h4>Useful Resources</h4>
+					<div class="resources">
+						<a class="flex-child" href="https://docs.unity3d.com/Manual/UIE-Events-Reference.html">Events Reference</a>
+						<a class="flex-child" href="https://docs.unity3d.com/Manual/UIE-Events-Handling.html">Event Handling</a>
+					</div>
+				</div>
 			</div>
 		</div>
 </article>

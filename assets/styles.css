@@ -1,0 +1,9 @@
+.resources {
+    text-decoration: underline; 
+    display: flex;
+    flex-direction: column;
+}
+
+.flex-child {
+    
+}
